@@ -13,8 +13,8 @@
  |
  |  Theme #8 by raiidens (@ tumblr)
  |  Published November 2015
- |  Updated December 2015
- |  Ver. 1.03
+ |  Updated January 2016
+ |  Ver. 1.04
  |
  |  Edit as much as you like, but please do not
  |  claim as your own work, and leave credit somewhere.
@@ -162,18 +162,20 @@
     border:1px double {color:Scrollbar border};
 }
 
-iframe#tumblr_controls {
-    top:0px;
+.tmblr-iframe {
+    top:0px !important;
     {block:IfNotMirrorLayout}right:3px !important;{/block:IfNotMirrorLayout}
     {block:IfMirrorLayout}left:3px !important;{/block:IfMirrorLayout}
     position:fixed !important;
     opacity: 0.3;
+    z-index:999999999 !important;
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
 }
-iframe#tumblr_controls:hover {opacity: 1.0;}
+.tmblr-iframe:hover {opacity: 1.0;}
+
 ::selection {background-color:{color:Text highlight background}; color:{color:Text highlight};}
 ::-moz-selection {background-color:{color:Text highlight background}; color:{color:Text highlight};}
 ::-webkit-selection {background-color:{color:Text highlight background}; color:{color:Text highlight};}
@@ -957,15 +959,6 @@ blockquote img, .audio img, .video img {
 </script>
 <script>
 $(document).ready(function(){
-    $('p').each(function() {
-        var text = $(this).html();
-        var regex = /\(Source:.*\)+/ig;
-        text = text.replace(regex, '');
-        regex = /\(via(.*)\)+/ig;
-        text = text.replace(regex, '');
-        $(this).html(text);
-    });
-    
     $("#leftcont").imagesLoaded(function() {
         $("#loader").fadeOut(1000);
         $("#postloader").fadeIn(1000);
@@ -975,6 +968,15 @@ $(document).ready(function(){
     });
 });
 $(window).load(function() {
+	$('p').each(function() {
+        var text = $(this).html();
+        var regex = /\(Source:.*\)+/ig;
+        text = text.replace(regex, '');
+        regex = /\(via(.*)\)+/ig;
+        text = text.replace(regex, '');
+        $(this).html(text);
+    });
+
     $("#postloader").fadeOut(1000);
     $("#postloadertext").fadeOut(1000);
     $("#content").animate({opacity: "1.0", top: "25"}, 1000);
